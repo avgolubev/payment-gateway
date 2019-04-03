@@ -13,13 +13,13 @@ import ru.multicard.paymentgateway.dto.CheckResponse;
 @Log4j
 @Service
 public class BackOfficeService {
-  
-  
+
+
   public CheckResponse checkSum(CheckRequest checkRequest) {
     CheckResponse s = new CheckResponse();
-    //s("asdsadas");
+    s.setCheck(2323);
     return s;
-    
+
   }
 
 }
