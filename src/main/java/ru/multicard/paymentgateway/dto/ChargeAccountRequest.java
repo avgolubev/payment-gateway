@@ -2,11 +2,16 @@ package ru.multicard.paymentgateway.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Object with data to charge account
+ */
+@ToString
 @Getter
 @Setter
 @XmlRootElement(name="request")

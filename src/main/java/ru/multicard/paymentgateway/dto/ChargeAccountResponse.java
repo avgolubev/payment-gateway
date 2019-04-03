@@ -7,15 +7,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Object for return result after charged account
+ */
 @Getter
 @Setter
 @XmlRootElement(name="response")
 public class ChargeAccountResponse {
 
   /**
-   * a sign of the operation: account replenishment - 0
+   * a sign of the operation: charge account - 0
    */
-  private int check;
+  private String check = "0";
 
   /**
    * digital error code

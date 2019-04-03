@@ -4,12 +4,13 @@ package ru.multicard.paymentgateway.dto;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 
 /**
- * The object of the response when checking the contract number
+ * Object for response when checking account
  */
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class CheckAccountResponse {
 	/**
 	 * a sign of the operation: checking account - 1
 	 */
-	private int check = 1;
+	private String check = "1";
 
 	/**
 	 * digital error code

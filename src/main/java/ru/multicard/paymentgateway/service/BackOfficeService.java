@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.multicard.paymentgateway.dto.ChargeAccountRequest;
 import ru.multicard.paymentgateway.dto.ChargeAccountResponse;
-import ru.multicard.paymentgateway.dto.CheckContractNumberRequest;
+import ru.multicard.paymentgateway.dto.CheckAccountRequest;
 import ru.multicard.paymentgateway.dto.CheckAccountResponse;
 
 /**
@@ -23,19 +23,46 @@ public class BackOfficeService {
   @Value("${salt}")
   private String salt;
 
-  public CheckAccountResponse checkAccount(CheckContractNumberRequest request) {
+  /**
+   *
+   * @param request
+   *    Object with data to check account
+   * @return
+   *    Result of checking account
+   */
+  public CheckAccountResponse checkAccount(CheckAccountRequest request) {
     CheckAccountResponse result = new CheckAccountResponse();
 
-    if(!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
-      result.setRetval(3);
+    result.setNumber(request.getNumber());
+
+    if(!request.isAllParametersFilled()) {
+      result.setRetval(OperationError.ABSENT_PARAMETER.getCode());
+      result.setRetdesc(OperationError.ABSENT_PARAMETER.getText());
+      return result;
     }
 
+    if(!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
+      result.setRetval(OperationError.MD5_ERROR.getCode());
+      result.setRetdesc(OperationError.MD5_ERROR.getText());
+      return result;
+    }
+
+    return null; // execute external system method
+  }
+
+  /**
+   * Charge account in external system
+   * @param request
+   *    Object with data to charge account
+   * @return
+   *    Result of charging account
+   */
+  public ChargeAccountResponse chargeAccount(ChargeAccountRequest request) {
+
+    return null;
   }
 
 
-  public ChargeAccountResponse chargeAccount(ChargeAccountRequest chargeAccountRequest) {
-
-  }
 
   /**
    * Validation md5 hash
@@ -46,7 +73,7 @@ public class BackOfficeService {
   private boolean isValidMd5Hash(String sign, String account, String salt) {
 
     String md5Hex = DigestUtils
-      .md5Hex(account + salt).toUpperCase();
+      .md5Hex(account + salt);
 
     return md5Hex.equals(sign);
   }
