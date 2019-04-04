@@ -2,7 +2,6 @@ package ru.multicard.paymentgateway.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Enum for known operation errors

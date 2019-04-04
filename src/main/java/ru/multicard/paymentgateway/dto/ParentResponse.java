@@ -1,6 +1,7 @@
 package ru.multicard.paymentgateway.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.multicard.paymentgateway.service.OperationError;
 
@@ -9,7 +10,8 @@ import ru.multicard.paymentgateway.service.OperationError;
  */
 @Getter
 @Setter
-public abstract class AbstractResponse {
+@NoArgsConstructor
+public class ParentResponse {
 
   /**
    * Digital error code.

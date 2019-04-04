@@ -4,6 +4,7 @@ package ru.multicard.paymentgateway.dto;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -12,7 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @XmlRootElement(name = "response")
-public class CheckAccountResponse extends AbstractResponse {
+@NoArgsConstructor
+public class CheckAccountResponse extends ParentResponse {
 
 	/**
 	 * A sign of the operation: checking account - 1.
