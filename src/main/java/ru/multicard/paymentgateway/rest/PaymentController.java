@@ -50,7 +50,7 @@ public final class PaymentController {
    *    result of operation
    */
   @RequestMapping(value = "/check", method = RequestMethod.POST)
-  public CheckAccountResponse postCheck(@RequestBody final CheckAccountRequest checkAccountRequest) {
+  public CheckAccountResponse postCheck(final CheckAccountRequest checkAccountRequest) {
     log.info(checkAccountRequest);
     return backOfficeService.checkAccount(checkAccountRequest);
   }
@@ -76,7 +76,7 @@ public final class PaymentController {
    *    result of operation
    */
   @RequestMapping(value = "/charge", method = RequestMethod.POST)
-  public ChargeAccountResponse postCharge(@RequestBody final ChargeAccountRequest chargeAccountRequest) {
+  public ChargeAccountResponse postCharge(final ChargeAccountRequest chargeAccountRequest) {
     log.info(chargeAccountRequest);
     return backOfficeService.chargeAccount(chargeAccountRequest);
   }
