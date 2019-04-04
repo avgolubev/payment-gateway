@@ -44,7 +44,7 @@ public class BackOfficeService {
       return result;
     }
 
-    if (!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
+    if (!isValidMd5Hash(request.getSign(), request.getNumber())) {
       result.setError(MD5_ERROR);
       return result;
     }
@@ -74,7 +74,7 @@ public class BackOfficeService {
       return result;
     }
 
-    if (!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
+    if (!isValidMd5Hash(request.getSign(), request.getNumber())) {
       result.setError(MD5_ERROR);
       return result;
     }
@@ -100,12 +100,10 @@ public class BackOfficeService {
    *    md5 hash from http request
    * @param account
    *    account from http request
-   * @param salt
-   *    secret key
    * @return
    *    true if hash is valid
    */
-  private boolean isValidMd5Hash(final String sign, final String account, final String salt) {
+  private boolean isValidMd5Hash(final String sign, final String account) {
 
     final String md5Hex = DigestUtils.md5Hex(account + salt);
     log.debug(md5Hex);

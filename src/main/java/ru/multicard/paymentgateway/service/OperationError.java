@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Enum for known operation errors
+ * Enum for known operation errors.
  */
 @Getter
 @AllArgsConstructor
@@ -30,12 +30,12 @@ public enum OperationError {
   PAYMENT_FOR_ACCOUNT_IS_PROHIBITED(50, "Платёж на указанный номер договора запрещен");
 
   /**
-   * digital error code
+   * Digital error code.
    */
   private final int code;
 
   /**
-   * error text
+   * Error text.
    */
   private final String text;
 

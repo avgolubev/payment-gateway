@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,9 +37,8 @@ public final class PaymentController {
    *    result of operation
    */
   @RequestMapping(value = "/check", method = RequestMethod.GET)
-  public CheckAccountResponse getCheck(final CheckAccountRequest request) {
-    log.info(request);
-    return backOfficeService.checkAccount(request);
+  public CheckAccountResponse getCheckAccount(final CheckAccountRequest request) {
+    return checkAccount(request);
   }
 
   /**
@@ -49,9 +49,15 @@ public final class PaymentController {
    *    result of operation
    */
   @RequestMapping(value = "/check", method = RequestMethod.POST)
-  public CheckAccountResponse postCheck(final CheckAccountRequest request) {
+  public CheckAccountResponse postCheckAccount(@RequestBody final CheckAccountRequest request) {
+    return checkAccount(request);
+  }
+
+  private CheckAccountResponse checkAccount(CheckAccountRequest request) {
     log.info(request);
-    return backOfficeService.checkAccount(request);
+    CheckAccountResponse result = backOfficeService.checkAccount(request);
+    log.info(result);
+    return result;
   }
 
   /**
@@ -62,9 +68,8 @@ public final class PaymentController {
    *    result of operation
    */
   @RequestMapping(value = "/charge", method = RequestMethod.GET)
-  public ChargeAccountResponse getCharge(final ChargeAccountRequest request) {
-    log.info(request);
-    return backOfficeService.chargeAccount(request);
+  public ChargeAccountResponse getChargeAccount(final ChargeAccountRequest request) {
+    return chargeAccount(request);
   }
 
   /**
@@ -75,9 +80,15 @@ public final class PaymentController {
    *    result of operation
    */
   @RequestMapping(value = "/charge", method = RequestMethod.POST)
-  public ChargeAccountResponse postCharge(final ChargeAccountRequest request) {
+  public ChargeAccountResponse postChargeAccount(@RequestBody final ChargeAccountRequest request) {
+    return chargeAccount(request);
+  }
+
+  private ChargeAccountResponse chargeAccount(ChargeAccountRequest request) {
     log.info(request);
-    return backOfficeService.chargeAccount(request);
+    ChargeAccountResponse result = backOfficeService.chargeAccount(request);
+    log.info(result);
+    return result;
   }
 
 }

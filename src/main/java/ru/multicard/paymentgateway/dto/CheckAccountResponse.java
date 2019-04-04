@@ -1,20 +1,26 @@
 
 package ru.multicard.paymentgateway.dto;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import ru.multicard.paymentgateway.service.OperationError;
 
 /**
  * Object for response when checking account.
  */
+@ToString
 @Getter
 @Setter
 @XmlRootElement(name = "response")
+@XmlAccessorType(XmlAccessType.FIELD)
 @NoArgsConstructor
-public class CheckAccountResponse extends ParentResponse {
+public class CheckAccountResponse {
 
 	/**
 	 * A sign of the operation: checking account - 1.
@@ -50,5 +56,15 @@ public class CheckAccountResponse extends ParentResponse {
 	 * Recommended payment amount.
 	 */
 	private String summa;
+
+	/**
+	 * Set retval and retdesc by OperationError.
+	 * @param operationError
+	 *    operation error
+	 */
+	public final void setError(final OperationError operationError) {
+		setRetval(operationError.getCode());
+		setRetdesc(operationError.getText());
+	}
 
 }

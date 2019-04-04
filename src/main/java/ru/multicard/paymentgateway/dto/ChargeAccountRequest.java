@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.NoArgsConstructor;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.regex.Pattern;
@@ -17,11 +19,12 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 @XmlRootElement(name = "request")
+@XmlAccessorType(XmlAccessType.FIELD)
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChargeAccountRequest {
   /**
-   * A sign of the operation: account replenishment - 0.
+   * A sign of the operation: charge account - 0.
    */
   private String check;
 
@@ -48,7 +51,7 @@ public class ChargeAccountRequest {
   /**
    * Payment date in format «dd.mm.yyyy hh24:mi:ss».
    */
-  @XmlElement(name = "paymentCreate")
+  @XmlElement(name = "payment_create")
   private String paymentCreate;
 
   /**
