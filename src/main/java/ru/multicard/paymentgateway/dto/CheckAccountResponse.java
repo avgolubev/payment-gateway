@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @XmlRootElement(name="response")
-public class CheckAccountResponse {
+public class CheckAccountResponse extends AbstractResponse {
 
 	/**
 	 * a sign of the operation: checking account - 1
@@ -50,6 +50,6 @@ public class CheckAccountResponse {
 	/**
 	 * recommended payment amount
 	 */
-	private BigDecimal summa;
+	private String summa;
 
 }

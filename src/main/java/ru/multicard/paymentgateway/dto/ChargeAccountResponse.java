@@ -2,6 +2,7 @@ package ru.multicard.paymentgateway.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.multicard.paymentgateway.service.OperationError;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
@@ -13,22 +14,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @XmlRootElement(name="response")
-public class ChargeAccountResponse {
+public class ChargeAccountResponse extends AbstractResponse {
 
   /**
    * a sign of the operation: charge account - 0
    */
   private String check = "0";
-
-  /**
-   * digital error code
-   */
-  private int retval;
-
-  /**
-   * error text
-   */
-  private String retdesc;
 
   /**
    * account
@@ -38,7 +29,7 @@ public class ChargeAccountResponse {
   /**
    * recommended payment amount
    */
-  private BigDecimal amount;
+  private String amount;
 
   /**
    * internal unique number of the session/transaction/transaction payment system
@@ -53,7 +44,7 @@ public class ChargeAccountResponse {
   /**
    * actual date the payment was added to the billing in format  «dd.mm.yyyy hh24:mi:ss»
    */
-  private LocalDate res_date;
+  private String res_date;
 
   /**
    * payment date in format «dd.mm.yyyy hh24:mi:ss»

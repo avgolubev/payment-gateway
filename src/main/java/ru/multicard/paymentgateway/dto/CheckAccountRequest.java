@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Setter
 @XmlRootElement(name="request")
 @AllArgsConstructor
+@NoArgsConstructor
 public class CheckAccountRequest {
 
   /**
@@ -32,7 +33,7 @@ public class CheckAccountRequest {
 
 
   /**
-   * All parameters send in HTTP request
+   * All parameters filled in HTTP request
    */
   public boolean isAllParametersFilled() {
 

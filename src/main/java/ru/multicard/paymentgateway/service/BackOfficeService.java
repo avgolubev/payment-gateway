@@ -31,23 +31,23 @@ public class BackOfficeService {
    *    Result of checking account
    */
   public CheckAccountResponse checkAccount(CheckAccountRequest request) {
-    CheckAccountResponse result = new CheckAccountResponse();
 
+    CheckAccountResponse result = new CheckAccountResponse();
     result.setNumber(request.getNumber());
 
     if(!request.isAllParametersFilled()) {
-      result.setRetval(OperationError.ABSENT_PARAMETER.getCode());
-      result.setRetdesc(OperationError.ABSENT_PARAMETER.getText());
+      result.setError(OperationError.ABSENT_PARAMETER);
       return result;
     }
 
     if(!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
-      result.setRetval(OperationError.MD5_ERROR.getCode());
-      result.setRetdesc(OperationError.MD5_ERROR.getText());
+      result.setError(OperationError.MD5_ERROR);
       return result;
     }
 
-    return null; // execute external system method
+    result.setError(OperationError.NO_ERROR);
+
+    return result; // execute external system method or DB query
   }
 
   /**
@@ -59,10 +59,36 @@ public class BackOfficeService {
    */
   public ChargeAccountResponse chargeAccount(ChargeAccountRequest request) {
 
-    return null;
+    ChargeAccountResponse result = new ChargeAccountResponse();
+    result.setNumber(request.getNumber());
+    result.setAmount(request.getAmount());
+    result.setSession(request.getSession());
+    result.setPayment_create(request.getPayment_create());
+
+    if(!request.isAllParametersFilled()) {
+      result.setError(OperationError.ABSENT_PARAMETER);
+      return result;
+    }
+
+    if(!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
+      result.setError(OperationError.MD5_ERROR);
+      return result;
+    }
+
+    if(!request.isAmountFormatValid()) {
+      result.setError(OperationError.INVALID_AMOUNT_FORMAT);
+      return result;
+    }
+
+    if(!request.isPaymentCreateFormatValid()) {
+      result.setError(OperationError.INVALID_PAYMENT_DATE_FORMAT);
+      return result;
+    }
+
+    result.setError(OperationError.NO_ERROR);
+
+    return result; // execute external system method or DB query
   }
-
-
 
   /**
    * Validation md5 hash
@@ -72,9 +98,8 @@ public class BackOfficeService {
    */
   private boolean isValidMd5Hash(String sign, String account, String salt) {
 
-    String md5Hex = DigestUtils
-      .md5Hex(account + salt);
-
+    String md5Hex = DigestUtils.md5Hex(account + salt);
+    log.debug(md5Hex);
     return md5Hex.equals(sign);
   }
 
