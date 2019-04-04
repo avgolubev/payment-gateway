@@ -4,51 +4,48 @@ package ru.multicard.paymentgateway.dto;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 /**
- * Object for response when checking account
+ * Object for response when checking account.
  */
 @Getter
 @Setter
-@XmlRootElement(name="response")
+@XmlRootElement(name = "response")
 public class CheckAccountResponse extends AbstractResponse {
 
 	/**
-	 * a sign of the operation: checking account - 1
+	 * A sign of the operation: checking account - 1.
 	 */
 	private String check = "1";
 
 	/**
-	 * digital error code
+	 * Digital error code.
 	 */
 	private int retval;
 
 	/**
-	 * error text
+	 * Error text.
 	 */
 	private String retdesc;
 
 	/**
-	 * contract number
+	 * Contract number.
 	 */
 	private String number;
 
 	/**
-	 * client name
+	 * Client name.
 	 */
 	private String name;
 
 	/**
-	 * address of receiving services by the client
+	 * Address of receiving services by the client.
 	 */
 	private String address;
 
 	/**
-	 * recommended payment amount
+	 * Recommended payment amount.
 	 */
 	private String summa;
 

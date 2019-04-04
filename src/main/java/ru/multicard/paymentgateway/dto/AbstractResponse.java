@@ -4,24 +4,29 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.multicard.paymentgateway.service.OperationError;
 
+/**
+ * Parent for all response objects.
+ */
 @Getter
 @Setter
 public abstract class AbstractResponse {
 
   /**
-   * digital error code
+   * Digital error code.
    */
   private int retval;
 
   /**
-   * error text
+   * Error text.
    */
   private String retdesc;
 
   /**
-   * set retval and retdesc by OperationError
+   * Set retval and retdesc by OperationError.
+   * @param operationError
+   *    operation error
    */
-  public void setError(OperationError operationError) {
+  public final void setError(final OperationError operationError) {
     setRetval(operationError.getCode());
     setRetdesc(operationError.getText());
   }

@@ -11,36 +11,36 @@ import ru.multicard.paymentgateway.dto.CheckAccountRequest;
 import ru.multicard.paymentgateway.dto.CheckAccountResponse;
 
 /**
- *  Service for accessing the Bank's systems
+ *  Service for accessing the Bank's systems.
  */
 @Log4j
 @Service
 public class BackOfficeService {
 
   /**
-   * secret signing key from application.properties
+   * Secret signing key from application.properties.
    */
   @Value("${salt}")
   private String salt;
 
   /**
-   *
+   * Check account.
    * @param request
-   *    Object with data to check account
+   *    object with data to check account
    * @return
-   *    Result of checking account
+   *    result of checking account
    */
-  public CheckAccountResponse checkAccount(CheckAccountRequest request) {
+  public final CheckAccountResponse checkAccount(final CheckAccountRequest request) {
 
     CheckAccountResponse result = new CheckAccountResponse();
     result.setNumber(request.getNumber());
 
-    if(!request.isAllParametersFilled()) {
+    if (!request.isAllParametersFilled()) {
       result.setError(OperationError.ABSENT_PARAMETER);
       return result;
     }
 
-    if(!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
+    if (!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
       result.setError(OperationError.MD5_ERROR);
       return result;
     }
@@ -51,36 +51,36 @@ public class BackOfficeService {
   }
 
   /**
-   * Charge account in external system
+   * Charge account in external system.
    * @param request
-   *    Object with data to charge account
+   *    object with data to charge account
    * @return
-   *    Result of charging account
+   *    result of charging account
    */
-  public ChargeAccountResponse chargeAccount(ChargeAccountRequest request) {
+  public final ChargeAccountResponse chargeAccount(final ChargeAccountRequest request) {
 
     ChargeAccountResponse result = new ChargeAccountResponse();
     result.setNumber(request.getNumber());
     result.setAmount(request.getAmount());
     result.setSession(request.getSession());
-    result.setPayment_create(request.getPayment_create());
+    result.setPaymentCreate(request.getPaymentCreate());
 
-    if(!request.isAllParametersFilled()) {
+    if (!request.isAllParametersFilled()) {
       result.setError(OperationError.ABSENT_PARAMETER);
       return result;
     }
 
-    if(!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
+    if (!isValidMd5Hash(request.getSign(), request.getNumber(), salt)) {
       result.setError(OperationError.MD5_ERROR);
       return result;
     }
 
-    if(!request.isAmountFormatValid()) {
+    if (!request.isAmountFormatValid()) {
       result.setError(OperationError.INVALID_AMOUNT_FORMAT);
       return result;
     }
 
-    if(!request.isPaymentCreateFormatValid()) {
+    if (!request.isPaymentCreateFormatValid()) {
       result.setError(OperationError.INVALID_PAYMENT_DATE_FORMAT);
       return result;
     }
@@ -91,8 +91,13 @@ public class BackOfficeService {
   }
 
   /**
-   * Validation md5 hash
-   *
+   * Validation md5 hash.
+   * @param sign
+   *    md5 hash from http request
+   * @param account
+   *    account from http request
+   * @param salt
+   *    secret key
    * @return
    *    true if hash is valid
    */

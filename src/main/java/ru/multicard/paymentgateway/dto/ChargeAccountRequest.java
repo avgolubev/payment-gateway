@@ -1,80 +1,86 @@
 package ru.multicard.paymentgateway.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.NoArgsConstructor;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 /**
- * Object with data to charge account
+ * Object with data to charge account.
  */
 @ToString
 @Getter
 @Setter
-@XmlRootElement(name="request")
+@XmlRootElement(name = "request")
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChargeAccountRequest {
   /**
-   * a sign of the operation: account replenishment - 0
+   * A sign of the operation: account replenishment - 0.
    */
   private String check;
 
   /**
-   * md5 signature for verification
+   * Md5 signature for verification.
    */
   private String sign;
 
   /**
-   * account
+   * Account.
    */
   private String number;
 
   /**
-   * payment amount format dd, dd.dd, dd.d
+   * Payment amount format dd, dd.dd, dd.d .
    */
   private String amount;
 
   /**
-   * internal unique number of the session/transaction/transaction payment system
+   * Internal unique number of the session/transaction/transaction payment system.
    */
   private String session;
 
   /**
-   * payment date in format «dd.mm.yyyy hh24:mi:ss»
+   * Payment date in format «dd.mm.yyyy hh24:mi:ss».
    */
-  private String payment_create;
+  @XmlElement(name = "paymentCreate")
+  private String paymentCreate;
 
   /**
-   * All parameters filled in HTTP request
+   * All parameters filled in HTTP request.
+   * @return
+   *    true if all parameters filled
    */
-  public boolean isAllParametersFilled() {
+  public final boolean isAllParametersFilled() {
 
     return check != null && !check.equals("") && sign != null && !sign.equals("")
       && number != null && !number.equals("")
       && amount != null && !amount.equals("")
       && session != null && !session.equals("")
-      && payment_create != null && !payment_create.equals("");
+      && paymentCreate != null && !paymentCreate.equals("");
   }
 
   /**
-   * Checking amount format
+   * Checking amount format.
    * @return
    *   true if valid or false
    */
-  public boolean isAmountFormatValid() {
+  public final boolean isAmountFormatValid() {
     return Pattern.matches("^\\d{1,6}(\\.\\d{1,2})?$", amount);
   }
 
   /**
-   * Checking payment_create format
+   * Checking paymentCreate format.
    * @return
    *    true if valid or false
    */
-  public boolean isPaymentCreateFormatValid() {
-    return Pattern.matches("^\\d{2}\\.\\d{2}.\\d{4}\\s\\d{2}:\\d{2}:\\d{2}$", payment_create);
+  public final boolean isPaymentCreateFormatValid() {
+    return Pattern.matches("^\\d{2}\\.\\d{2}.\\d{4}\\s\\d{2}:\\d{2}:\\d{2}$", paymentCreate);
   }
 
 }

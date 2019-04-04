@@ -16,7 +16,7 @@ import ru.multicard.paymentgateway.dto.CheckAccountRequest;
 import ru.multicard.paymentgateway.dto.CheckAccountResponse;
 
 /**
- * Handling of all incoming provider requests
+ * Handling of all incoming provider requests.
  */
 @Log4j
 @RestController
@@ -25,46 +25,58 @@ import ru.multicard.paymentgateway.dto.CheckAccountResponse;
 public final class PaymentController {
 
   /**
-   * Injected BackOfficeService
+   * Injected BackOfficeService.
    */
   private final BackOfficeService backOfficeService;
 
   /**
-   * Processing HTTP GET to check account
+   * Processing HTTP GET to check account.
    * @param checkAccountRequest
+   *    parameters to check account
    * @return
+   *    result of operation
    */
   @RequestMapping(value = "/check", method = RequestMethod.GET)
-  public CheckAccountResponse getCheck(CheckAccountRequest checkAccountRequest) {
+  public CheckAccountResponse getCheck(final CheckAccountRequest checkAccountRequest) {
     log.info(checkAccountRequest);
     return backOfficeService.checkAccount(checkAccountRequest);
   }
 
   /**
-   * Processing HTTP POST to check account
+   * Processing HTTP POST to check account.
    * @param checkAccountRequest
+   *    parameters to check account
    * @return
+   *    result of operation
    */
   @RequestMapping(value = "/check", method = RequestMethod.POST)
-  public CheckAccountResponse postCheck(@RequestBody CheckAccountRequest checkAccountRequest) {
+  public CheckAccountResponse postCheck(@RequestBody final CheckAccountRequest checkAccountRequest) {
     log.info(checkAccountRequest);
     return backOfficeService.checkAccount(checkAccountRequest);
   }
 
   /**
-   * Processing HTTP GET to charge account
+   * Processing HTTP GET to charge account.
+   * @param chargeAccountRequest
+   *    parameters to charge account
+   * @return
+   *    result of operation
    */
   @RequestMapping(value = "/charge", method = RequestMethod.GET)
-  public ChargeAccountResponse getCharge(ChargeAccountRequest chargeAccountRequest) {
+  public ChargeAccountResponse getCharge(final ChargeAccountRequest chargeAccountRequest) {
     log.info(chargeAccountRequest);
     return backOfficeService.chargeAccount(chargeAccountRequest);
   }
 
   /**
-   * Processing HTTP POST to charge account
+   * Processing HTTP POST to charge account.
+   * @param chargeAccountRequest
+   *    parameters to charge account
+   * @return
+   *    result of operation
    */
   @RequestMapping(value = "/charge", method = RequestMethod.POST)
-  public ChargeAccountResponse postCharge(ChargeAccountRequest chargeAccountRequest) {
+  public ChargeAccountResponse postCharge(@RequestBody final ChargeAccountRequest chargeAccountRequest) {
     log.info(chargeAccountRequest);
     return backOfficeService.chargeAccount(chargeAccountRequest);
   }

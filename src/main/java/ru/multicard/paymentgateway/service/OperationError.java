@@ -1,8 +1,14 @@
 package ru.multicard.paymentgateway.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Enum for known operation errors
  */
+@Getter
+@AllArgsConstructor
 public enum OperationError {
 
   NO_ERROR(0, "нет ошибки"),
@@ -24,19 +30,14 @@ public enum OperationError {
   TOO_LARGE_PAYMENT_AMOUNT(41, "Слишком большая сумма платежа"),
   PAYMENT_FOR_ACCOUNT_IS_PROHIBITED(50, "Платёж на указанный номер договора запрещен");
 
+  /**
+   * digital error code
+   */
   private final int code;
+
+  /**
+   * error text
+   */
   private final String text;
 
-  OperationError(int code, String text) {
-    this.code = code;
-    this.text = text;
-  }
-
-  public int getCode() {
-    return code;
-  }
-
-  public String getText() {
-    return text;
-  }
 }

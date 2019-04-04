@@ -2,53 +2,54 @@ package ru.multicard.paymentgateway.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.multicard.paymentgateway.service.OperationError;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 /**
- * Object for return result after charged account
+ * Object for return result after charged account.
  */
 @Getter
 @Setter
-@XmlRootElement(name="response")
+@XmlRootElement(name = "response")
 public class ChargeAccountResponse extends AbstractResponse {
 
   /**
-   * a sign of the operation: charge account - 0
+   * A sign of the operation: charge account - 0.
    */
   private String check = "0";
 
   /**
-   * account
+   * Account.
    */
   private String number;
 
   /**
-   * recommended payment amount
+   * Recommended payment amount.
    */
   private String amount;
 
   /**
-   * internal unique number of the session/transaction/transaction payment system
+   * Internal unique number of the session/transaction/transaction payment system.
    */
   private String session;
 
   /**
-   * unique identifier of the Bank session in MSSQL uniqueidentifier format
+   * Unique identifier of the Bank session in MSSQL uniqueidentifier format.
    */
-  private String res_session;
+  @XmlElement(name = "resSession")
+  private String resSession;
 
   /**
-   * actual date the payment was added to the billing in format  «dd.mm.yyyy hh24:mi:ss»
+   * Actual date the payment was added to the billing in format  «dd.mm.yyyy hh24:mi:ss».
    */
-  private String res_date;
+  @XmlElement(name = "resDate")
+  private String resDate;
 
   /**
-   * payment date in format «dd.mm.yyyy hh24:mi:ss»
+   * Payment date in format «dd.mm.yyyy hh24:mi:ss».
    */
-  private String payment_create;
+  @XmlElement(name = "paymentCreate")
+  private String paymentCreate;
 
 }

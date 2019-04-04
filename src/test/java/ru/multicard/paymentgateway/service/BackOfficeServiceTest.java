@@ -52,7 +52,7 @@ class BackOfficeServiceTest {
     request.setAmount("1200.78");
     assertEquals(OperationError.INVALID_PAYMENT_DATE_FORMAT.getCode(), backOfficeService.chargeAccount(request).getRetval());
 
-    request.setPayment_create("12.03.2019 12:34:00");
+    request.setPaymentCreate("12.03.2019 12:34:00");
     assertEquals(OperationError.NO_ERROR.getCode(), backOfficeService.chargeAccount(request).getRetval());
 
   }
