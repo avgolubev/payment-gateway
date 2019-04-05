@@ -6,6 +6,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,10 +15,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.multicard.paymentgateway.dto.ChargeAccountRequest;
 import ru.multicard.paymentgateway.dto.CheckAccountRequest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static ru.multicard.paymentgateway.service.OperationError.*;
 
+@RunWith(JUnitPlatform.class)
+@SpringBootTest
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @NoArgsConstructor
 @DisplayName("Test BackOfficeService functionality.")
 public class BackOfficeServiceTest {
@@ -27,15 +31,9 @@ public class BackOfficeServiceTest {
    */
   private BackOfficeService backOfficeService;
 
-  /**
-   * Secret signing key from application.properties.
-   */
-  @Value("${salt}")
-  private String salt;
-
   @Test
   @DisplayName("Test validation in BackOfficeService.checkAccount.")
-  public void checkAccountNotAllParametersFilled() {
+  public void checkAccount(@Value("${salt}") String salt) {
     final CheckAccountRequest request = new CheckAccountRequest("1", "", "123");
     assertEquals(ABSENT_PARAMETER.getCode(), backOfficeService.checkAccount(request).getRetval(),
       "Error should be ABSENT_PARAMETER when at least one query parameter is missing.");
@@ -44,14 +42,14 @@ public class BackOfficeServiceTest {
     assertEquals(MD5_ERROR.getCode(), backOfficeService.checkAccount(request).getRetval(),
       "Error should be MD5_ERROR when sign parameter is invalid md5 hash.");
 
-    request.setSign(md5Hash(request.getNumber()));
+    request.setSign(md5Hash(request.getNumber(), salt));
     assertEquals(NO_ERROR.getCode(), backOfficeService.checkAccount(request).getRetval(),
       "Error should be NO_ERROR  when nothing errors in operation.");
   }
 
   @Test
   @DisplayName("Test validation in BackOfficeService.chargeAccount.")
-  public void chargeAccount() {
+  public void chargeAccount(@Value("${salt}") String salt) {
     final ChargeAccountRequest request = new ChargeAccountRequest("0", "", "123", "12,00",
       "xxxx", ".13.2019");
     assertEquals(ABSENT_PARAMETER.getCode(), backOfficeService.chargeAccount(request).getRetval(),
@@ -61,7 +59,7 @@ public class BackOfficeServiceTest {
     assertEquals(MD5_ERROR.getCode(), backOfficeService.chargeAccount(request).getRetval(),
       "Error should be MD5_ERROR when sign parameter is invalid md5 hash.");
 
-    request.setSign(md5Hash(request.getNumber()));
+    request.setSign(md5Hash(request.getNumber(), salt));
     assertEquals(INVALID_AMOUNT_FORMAT.getCode(), backOfficeService.chargeAccount(request).getRetval(),
       "Error should be INVALID_AMOUNT_FORMAT when parameter amount has invalid format.");
 
@@ -75,7 +73,7 @@ public class BackOfficeServiceTest {
 
   }
 
-  private String md5Hash(final String value) {
+  private String md5Hash(final String value, String salt) {
     return DigestUtils.md5Hex(value + salt);
   }
 

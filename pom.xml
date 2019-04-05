@@ -11,7 +11,10 @@
 	<groupId>ru.multicard</groupId>
 	<artifactId>payment-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- run in container (tomcat) -->
 	<packaging>war</packaging>
+	<!-- run standalone -->
+	<!--packaging>jar</packaging-->
 	<name>payment-gateway</name>
 	<description>The payment gateway</description>
 
@@ -60,6 +63,16 @@
             <scope>test</scope>
         </dependency>
 		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>5.1.5.RELEASE</version>
@@ -70,16 +83,31 @@
 	<build>
 		<plugins>
 			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.0</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.22.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.0.0</version>
-        <configuration>
-            <consoleOutput>true</consoleOutput>
-        </configuration>
+				<configuration>
+					<consoleOutput>true</consoleOutput>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
