@@ -53,13 +53,6 @@ public final class PaymentController {
     return checkAccount(request);
   }
 
-  private CheckAccountResponse checkAccount(CheckAccountRequest request) {
-    log.info(request);
-    CheckAccountResponse result = backOfficeService.checkAccount(request);
-    log.info(result);
-    return result;
-  }
-
   /**
    * Processing HTTP GET to charge account.
    * @param request
@@ -82,6 +75,13 @@ public final class PaymentController {
   @RequestMapping(value = "/charge", method = RequestMethod.POST)
   public ChargeAccountResponse postChargeAccount(@RequestBody final ChargeAccountRequest request) {
     return chargeAccount(request);
+  }
+
+  private CheckAccountResponse checkAccount(CheckAccountRequest request) {
+    log.info(request);
+    CheckAccountResponse result = backOfficeService.checkAccount(request);
+    log.info(result);
+    return result;
   }
 
   private ChargeAccountResponse chargeAccount(ChargeAccountRequest request) {
