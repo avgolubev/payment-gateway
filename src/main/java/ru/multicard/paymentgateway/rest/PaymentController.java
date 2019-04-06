@@ -77,7 +77,7 @@ public final class PaymentController {
     return chargeAccount(request);
   }
 
-  private CheckAccountResponse checkAccount(CheckAccountRequest request) {
+  private CheckAccountResponse checkAccount(final CheckAccountRequest request) {
     log.info(request);
     CheckAccountResponse result = backOfficeService.checkAccount(request);
     log.info(result);

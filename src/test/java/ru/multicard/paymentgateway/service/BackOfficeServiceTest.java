@@ -15,7 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.multicard.paymentgateway.dto.ChargeAccountRequest;
 import ru.multicard.paymentgateway.dto.CheckAccountRequest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static ru.multicard.paymentgateway.service.OperationError.*;
 
 @RunWith(JUnitPlatform.class)
@@ -33,7 +32,7 @@ public class BackOfficeServiceTest {
 
   @Test
   @DisplayName("Test validation in BackOfficeService.checkAccount.")
-  public void checkAccount(@Value("${salt}") String salt) {
+  public void checkAccount(@Value("${salt}") final String salt) {
     final CheckAccountRequest request = new CheckAccountRequest("1", "", "123");
     assertEquals(ABSENT_PARAMETER.getCode(), backOfficeService.checkAccount(request).getRetval(),
       "Error should be ABSENT_PARAMETER when at least one query parameter is missing.");
@@ -49,7 +48,7 @@ public class BackOfficeServiceTest {
 
   @Test
   @DisplayName("Test validation in BackOfficeService.chargeAccount.")
-  public void chargeAccount(@Value("${salt}") String salt) {
+  public void chargeAccount(@Value("${salt}") final String salt) {
     final ChargeAccountRequest request = new ChargeAccountRequest("0", "", "123", "12,00",
       "xxxx", ".13.2019");
     assertEquals(ABSENT_PARAMETER.getCode(), backOfficeService.chargeAccount(request).getRetval(),
@@ -73,7 +72,7 @@ public class BackOfficeServiceTest {
 
   }
 
-  private String md5Hash(final String value, String salt) {
+  private String md5Hash(final String value, final String salt) {
     return DigestUtils.md5Hex(value + salt);
   }
 

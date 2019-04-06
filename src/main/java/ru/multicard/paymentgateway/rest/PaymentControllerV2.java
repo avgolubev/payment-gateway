@@ -28,59 +28,52 @@ public final class PaymentControllerV2 {
   /**
    * Processing HTTP GET to check/charge account.
    * @param request
-   *    parameters to check account
+   *    parameters to check/charge account
    * @return
    *    result of operation
    */
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public Object getCheckAccount(final CommonRequestV2 request) {
-
-    switch (request.getCheck()) {
-      case "1":
-        return checkAccount(request.createCheckAccountRequest());
-
-      case "0":
-        return chargeAccount(request.createChargeAccountRequest());
-
-      default:
-        return null;
-    }
+  public Object getOperationAccount(final CommonRequestV2 request) {
+    return operationAccount(request);
   }
 
   /**
    * Processing HTTP POST to heck/charge account.
    * @param request
-   *    parameters to check account
+   *    parameters to check/charge account
    * @return
    *    result of operation
    */
   @RequestMapping(value = "/", method = RequestMethod.POST)
-  public Object postCheckAccount(@RequestBody final CommonRequestV2 request) {
+  public Object postOperationAccount(@RequestBody final CommonRequestV2 request) {
+    return operationAccount(request);
+  }
+
+  /**
+   * Choosing operation
+   * @param request
+   *    parameters to check/charge account
+   * @return
+   *    result of operation
+   */
+  private Object operationAccount(final CommonRequestV2 request) {
+
+    log.info(request);
+    Object result;
 
     switch (request.getCheck()) {
       case "1":
-        return checkAccount(request.createCheckAccountRequest());
+        result = backOfficeService.checkAccount(request.createCheckAccountRequest());
+        break;
 
       case "0":
-        return chargeAccount(request.createChargeAccountRequest());
+        result = backOfficeService.chargeAccount(request.createChargeAccountRequest());
+        break;
 
       default:
-        return null;
+        result = null;
     }
-  }
 
-
-
-  private CheckAccountResponse checkAccount(CheckAccountRequest request) {
-    log.info(request);
-    CheckAccountResponse result = backOfficeService.checkAccount(request);
-    log.info(result);
-    return result;
-  }
-
-  private ChargeAccountResponse chargeAccount(ChargeAccountRequest request) {
-    log.info(request);
-    ChargeAccountResponse result = backOfficeService.chargeAccount(request);
     log.info(result);
     return result;
   }

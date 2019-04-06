@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * A common request object combining fields
+ *  from CheckAccountRequest and ChargeAccountRequest objects.
+ */
 @ToString
 @Getter
 @Setter
