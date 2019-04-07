@@ -41,7 +41,8 @@ class PaymentControllerV2Test {
   }
 
   @Test
-  @DisplayName("Check choosing right route by value of check parameter and return xml in «application/xml;charset=UTF-8» content-type.")
+  @DisplayName("Check choosing right route by value of check parameter and return xml in «application/xml;charset=UTF-8» "
+             + "content-type.")
   void checkGetOperationAccountRightRouteAndContentType() throws Exception {
 
     MockHttpServletRequestBuilder requestBuilder =
@@ -50,11 +51,26 @@ class PaymentControllerV2Test {
 
     MvcResult result = mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
 
-    MockHttpServletResponse mockResponse=result.getResponse();
+    MockHttpServletResponse mockResponse = result.getResponse();
     assertEquals(mockResponse.getContentType(), "application/xml;charset=UTF-8");
     String responseAsString=mockResponse.getContentAsString();
     log.info(responseAsString);
-    assertTrue(responseAsString.contains("<response><check>1</check><retval>3</retval><retdesc>Ошибка ключа MD5</retdesc><number>123</number></response>"));
+    assertTrue(responseAsString.contains("<response><check>1</check><retval>3</retval>"
+            + "<retdesc>Ошибка ключа MD5</retdesc><number>123</number></response>"));
+
+    requestBuilder = MockMvcRequestBuilders.get("/" +
+            createChargeQuery("0","123","xxx", "12", "xxx", "01.01.2019 12:34:56"))
+                    .contentType(MediaType.APPLICATION_XML).characterEncoding("UTF-8");
+
+    result = mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
+
+    mockResponse = result.getResponse();
+    assertEquals(mockResponse.getContentType(), "application/xml;charset=UTF-8");
+    responseAsString=mockResponse.getContentAsString();
+    log.info(responseAsString);
+    assertTrue(responseAsString.contains("<response><check>0</check><retval>3</retval>"
+            + "<retdesc>Ошибка ключа MD5</retdesc><number>123</number><amount>12</amount>"
+            + "<session>xxx</session><payment_create>01.01.2019 12:34:56</payment_create></response>"));
 
   }
 
@@ -65,8 +81,18 @@ class PaymentControllerV2Test {
 
   private static String createCheckQuery (String check , String number, String sign) {
     return "?check=" + check +
-      "&number=" + number +
-      "&sign=" + sign;
+           "&number=" + number +
+           "&sign=" + sign;
+  }
+
+  private static String createChargeQuery (String check , String number, String sign, String amount, String session,
+                                           String payment_create) {
+    return "?check=" + check +
+            "&number=" + number +
+            "&sign=" + sign +
+            "&amount=" + amount +
+            "&session="+ session +
+            "&payment_create=" + payment_create;
   }
 
 }

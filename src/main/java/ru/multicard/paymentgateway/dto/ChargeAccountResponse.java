@@ -55,20 +55,17 @@ public class ChargeAccountResponse {
   /**
    * Unique identifier of the Bank session in MSSQL uniqueidentifier format.
    */
-  @XmlElement(name = "res_session")
-  private String resSession;
+  private String res_session;
 
   /**
    * Actual date the payment was added to the billing in format  «dd.mm.yyyy hh24:mi:ss».
    */
-  @XmlElement(name = "res_date")
-  private String resDate;
+  private String res_date;
 
   /**
    * Payment date in format «dd.mm.yyyy hh24:mi:ss».
    */
-  @XmlElement(name = "payment_create")
-  private String paymentCreate;
+  private String payment_create;
 
   /**
    * Set retval and retdesc by OperationError.

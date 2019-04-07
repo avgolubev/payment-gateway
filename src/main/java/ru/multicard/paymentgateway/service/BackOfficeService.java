@@ -67,7 +67,7 @@ public class BackOfficeService {
     result.setNumber(request.getNumber());
     result.setAmount(request.getAmount());
     result.setSession(request.getSession());
-    result.setPaymentCreate(request.getPaymentCreate());
+    result.setPayment_create(request.getPaymentCreate());
 
     if (!request.isAllParametersFilled()) {
       result.setError(ABSENT_PARAMETER);

@@ -64,7 +64,7 @@ public class BackOfficeServiceTest {
 
     request.setAmount("1200.78");
     assertEquals(INVALID_PAYMENT_DATE_FORMAT.getCode(), backOfficeService.chargeAccount(request).getRetval(),
-      "Error should be INVALID_PAYMENT_DATE_FORMAT when paymentCreate parameter has invalid format.");
+      "Error should be INVALID_PAYMENT_DATE_FORMAT when payment_create parameter has invalid format.");
 
     request.setPaymentCreate("12.03.2019 12:34:00");
     assertEquals(NO_ERROR.getCode(), backOfficeService.chargeAccount(request).getRetval(),

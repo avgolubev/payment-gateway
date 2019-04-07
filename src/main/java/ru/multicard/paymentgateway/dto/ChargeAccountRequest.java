@@ -51,7 +51,6 @@ public class ChargeAccountRequest {
   /**
    * Payment date in format «dd.mm.yyyy hh24:mi:ss».
    */
-  @XmlElement(name = "payment_create")
   private String paymentCreate;
 
   /**
@@ -78,7 +77,7 @@ public class ChargeAccountRequest {
   }
 
   /**
-   * Checking paymentCreate format.
+   * Checking payment_create format.
    * @return
    *    true if valid or false
    */

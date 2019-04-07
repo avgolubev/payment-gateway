@@ -47,8 +47,7 @@ public class CommonRequestV2 {
   /**
    * Payment date in format «dd.mm.yyyy hh24:mi:ss».
    */
-  @XmlElement(name = "payment_create")
-  private String paymentCreate;
+  private String payment_create;
 
   public String getCheck() {
     return check == null ? "null" : check;
@@ -59,7 +58,7 @@ public class CommonRequestV2 {
   }
 
   public ChargeAccountRequest createChargeAccountRequest() {
-    return new ChargeAccountRequest(check, sign, number, amount, session, paymentCreate);
+    return new ChargeAccountRequest(check, sign, number, amount, session, payment_create);
 
   }
 
