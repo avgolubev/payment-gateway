@@ -21,7 +21,7 @@ import ru.multicard.paymentgateway.dto.CheckAccountResponse;
 @Log4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(produces = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_XML_VALUE + ";charset=UTF-8")
 public final class PaymentController {
 
   /**
@@ -84,7 +84,7 @@ public final class PaymentController {
     return result;
   }
 
-  private ChargeAccountResponse chargeAccount(ChargeAccountRequest request) {
+  private ChargeAccountResponse chargeAccount(final ChargeAccountRequest request) {
     log.info(request);
     ChargeAccountResponse result = backOfficeService.chargeAccount(request);
     log.info(result);

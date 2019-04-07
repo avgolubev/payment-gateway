@@ -17,7 +17,7 @@ import ru.multicard.paymentgateway.service.BackOfficeService;
 @Log4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(produces = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_XML_VALUE + ";charset=UTF-8")
 public final class PaymentControllerV2 {
 
   /**
