@@ -78,19 +78,18 @@ class PaymentControllerV2Test {
   void postOperationAccount() {
   }
 
-
   private static String createCheckQuery (String check , String number, String sign) {
+    return "?check=" + check +
+      "&number=" + number +
+      "&sign=" + sign;
+  }
+
+  private static String createCheckXml (String check , String number, String sign) {
     return  "<request>" +
             "<check>" + check + "</check>" +
             "<number>" + number + "</number>" +
             "<sign>" + sign + "</sign>" +
             "</request>";
-  }
-
-  private static String createCheckXml (String check , String number, String sign) {
-    return "?check=" + check +
-      "&number=" + number +
-      "&sign=" + sign;
   }
 
   private static String createChargeQuery (String check , String number, String sign, String amount, String session,
