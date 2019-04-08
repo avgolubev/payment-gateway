@@ -80,9 +80,17 @@ class PaymentControllerV2Test {
 
 
   private static String createCheckQuery (String check , String number, String sign) {
+    return  "<request>" +
+            "<check>" + check + "</check>" +
+            "<number>" + number + "</number>" +
+            "<sign>" + sign + "</sign>" +
+            "</request>";
+  }
+
+  private static String createCheckXml (String check , String number, String sign) {
     return "?check=" + check +
-           "&number=" + number +
-           "&sign=" + sign;
+      "&number=" + number +
+      "&sign=" + sign;
   }
 
   private static String createChargeQuery (String check , String number, String sign, String amount, String session,
@@ -93,6 +101,18 @@ class PaymentControllerV2Test {
             "&amount=" + amount +
             "&session="+ session +
             "&payment_create=" + payment_create;
+  }
+
+  private static String createChargeXml (String check , String number, String sign, String amount, String session,
+                                           String payment_create) {
+    return  "<request>" +
+            "<check>" + check + "</check>" +
+            "<number>" + number + "</number>" +
+            "<sign>" + sign + "</sign>" +
+            "<amount>" + amount + "<amount>" +
+            "<session>"+ session + "</session>" +
+            "<payment_create>" + payment_create + "</payment_create>" +
+            "</request>";
   }
 
 }
