@@ -1,3 +1,4 @@
+
 package ru.multicard.paymentgateway;
 
 import org.springframework.boot.SpringApplication;
