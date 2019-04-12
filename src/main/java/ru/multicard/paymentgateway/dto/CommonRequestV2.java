@@ -50,15 +50,15 @@ public class CommonRequestV2 {
    */
   private String payment_create;
 
-  public String getCheck() {
+  public final String getCheck() {
     return check == null ? "null" : check;
   }
 
-  public CheckAccountRequest createCheckAccountRequest() {
+  public final CheckAccountRequest createCheckAccountRequest() {
     return new CheckAccountRequest(check, sign, number);
   }
 
-  public ChargeAccountRequest createChargeAccountRequest() {
+  public final ChargeAccountRequest createChargeAccountRequest() {
     return new ChargeAccountRequest(check, sign, number, amount, session, payment_create);
 
   }
