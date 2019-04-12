@@ -18,8 +18,7 @@ import ru.multicard.paymentgateway.service.OperationError;
 @XmlAccessorType(XmlAccessType.FIELD)
 @NoArgsConstructor
 public class CheckAccountResponse {
-
-	/**
+   /**
 	 * A sign of the operation: checking account - 1.
 	 */
 	private String check = "1";
