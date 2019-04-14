@@ -50,7 +50,7 @@ public final class PaymentControllerV2 {
   }
 
   /**
-   * Choosing operation
+   * Choosing operation.
    * @param request
    *    parameters to check/charge account
    * @return
