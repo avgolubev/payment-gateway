@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @NoArgsConstructor
 public class ServletInitializer extends SpringBootServletInitializer {
 	@Override
-	protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
+	protected final SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
 		return application.sources(PaymentGatewayApplication.class);
   }
 }
